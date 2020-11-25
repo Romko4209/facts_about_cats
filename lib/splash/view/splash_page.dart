@@ -1,7 +1,14 @@
+import 'package:authentication_repository/authentication_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:splashscreen/splashscreen.dart';
 
+import '../../app.dart';
+
 class SplashPage extends StatefulWidget {
+  static Route route() {
+    return MaterialPageRoute<void>(builder: (_) => SplashPage());
+  }
+
   @override
   _SplashPageState createState() => new _SplashPageState();
 }
@@ -11,7 +18,9 @@ class _SplashPageState extends State<SplashPage> {
   Widget build(BuildContext context) {
     return SplashScreen(
       seconds: 3,
-      title: new Text(
+      navigateAfterSeconds:
+          App(authenticationRepository: AuthenticationRepository()),
+      title: Text(
         'Loading app...',
         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
       ),

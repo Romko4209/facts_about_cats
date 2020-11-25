@@ -12,6 +12,7 @@ dependencies:
   flutter:
     sdk: flutter
   bloc: ^6.1.0
+  flutter_bloc: ^6.1.1
   equatable: ^1.2.5
   meta: ^1.2.4
   http: ^0.12.2
@@ -35,13 +36,11 @@ flutter:
   assets:
     - assets/image/
   
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
-  #   - family: Trajan Pro
+  fonts:
+    - family: DancingScript     
+      fonts:
+        - asset: assets/fonts/DancingScript.ttf
+
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf
   #       - asset: fonts/TrajanPro_Bold.ttf

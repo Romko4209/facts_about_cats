@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>347759641463-4ib8heil9r8of5dauvq0i97u5jv9ft0f.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.347759641463-4ib8heil9r8of5dauvq0i97u5jv9ft0f</string>
+	<key>API_KEY</key>
+	<string>AIzaSyD_7vC8yz58H9iGFoPuP12_JR8ibuy2_UQ</string>
+	<key>GCM_SENDER_ID</key>
+	<string>347759641463</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.factsAboutCats</string>
+	<key>PROJECT_ID</key>
+	<string>facts-about-cats</string>
+	<key>STORAGE_BUCKET</key>
+	<string>facts-about-cats.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:347759641463:ios:34ee62570b14d76d175772</string>
+	<key>DATABASE_URL</key>
+	<string>https://facts-about-cats.firebaseio.com</string>
+</dict>
+</plist>
