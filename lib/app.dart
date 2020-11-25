@@ -1,5 +1,6 @@
 import 'package:authentication_repository/authentication_repository.dart';
-import 'package:facts_about_cats/reserve.dart';
+import 'package:facts_about_cats/login/view/view.dart';
+
 import 'package:facts_about_cats/splash/splash.dart';
 import 'package:facts_about_cats/theme.dart';
 import 'package:flutter/material.dart';
@@ -36,10 +37,14 @@ class AppView extends StatefulWidget {
 }
 
 class _AppViewState extends State<AppView> {
+  final _navigatorKey = GlobalKey<NavigatorState>();
+
+  NavigatorState get _navigator => _navigatorKey.currentState;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: theme,
+      navigatorKey: _navigatorKey,
       builder: (context, child) {
         return BlocListener<AuthenticationBloc, AuthenticationState>(
           listener: (context, state) {
@@ -48,7 +53,11 @@ class _AppViewState extends State<AppView> {
                 print('authenticated');
                 break;
               case AuthenticationStatus.unauthenticated:
-                print('not authenticated');
+                _navigator.pushAndRemoveUntil<void>(
+                  LoginPage.route(),
+                  (route) => false,
+                );
+                print('login');
                 break;
               default:
                 break;
@@ -57,7 +66,7 @@ class _AppViewState extends State<AppView> {
           child: child,
         );
       },
-      onGenerateRoute: (_) => Reserve.route(),
+      onGenerateRoute: (_) => SplashPage.route(),
     );
   }
 }
