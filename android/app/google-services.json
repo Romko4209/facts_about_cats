@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "347759641463",
+    "firebase_url": "https://facts-about-cats.firebaseio.com",
+    "project_id": "facts-about-cats",
+    "storage_bucket": "facts-about-cats.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:347759641463:android:c02911f8410965e3175772",
+        "android_client_info": {
+          "package_name": "com.example.facts_about_cats"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "347759641463-djig4f05d1uab74p2brivo7m7cshmj9t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.facts_about_cats",
+            "certificate_hash": "bbad2af43ab27230c9b94207cd60e7761471252e"
+          }
+        },
+        {
+          "client_id": "347759641463-advtnkgkdha1q8dvfpqrm71p1kaiorgi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtLqPsarjCpx8ZOfi-IeD5TN7yn8JZyDw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "347759641463-advtnkgkdha1q8dvfpqrm71p1kaiorgi.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "347759641463-4ib8heil9r8of5dauvq0i97u5jv9ft0f.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.factsAboutCats"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
