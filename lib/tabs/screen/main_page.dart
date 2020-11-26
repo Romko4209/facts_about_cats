@@ -1,3 +1,4 @@
+import 'package:facts_about_cats/cats/view/cats_page.dart';
 import 'package:facts_about_cats/profile/view/profile_page.dart';
 import 'package:facts_about_cats/tabs/bloc/tab.dart';
 import 'package:facts_about_cats/tabs/model/app_tab.dart';
@@ -15,7 +16,7 @@ class MainPage extends StatelessWidget {
         switch (activeTab) {
           case AppTab.cats:
             selectedPageTitle = 'Cats';
-            page = ProfilePage();
+            page = CatsPage();
             break;
           case AppTab.favorite:
             selectedPageTitle = 'Favorite';
@@ -28,11 +29,11 @@ class MainPage extends StatelessWidget {
           default:
             break;
         }
-        ;
         return Scaffold(
           appBar: AppBar(
             title: Text(
               selectedPageTitle,
+              // ignore: deprecated_member_use
               style: Theme.of(context).accentTextTheme.title,
             ),
           ),

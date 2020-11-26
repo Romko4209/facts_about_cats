@@ -1,6 +1,5 @@
 import 'package:authentication_repository/authentication_repository.dart';
 import 'package:facts_about_cats/login/view/view.dart';
-import 'package:facts_about_cats/profile/view/profile_page.dart';
 
 import 'package:facts_about_cats/splash/splash.dart';
 import 'package:facts_about_cats/tabs/screen/provider.dart';

@@ -23,14 +23,17 @@ class TabSelector extends StatelessWidget {
       items: [
         const BottomNavigationBarItem(
           icon: Icon(Icons.list),
+          // ignore: deprecated_member_use
           title: Text('Cats'),
         ),
         const BottomNavigationBarItem(
           icon: Icon(Icons.star),
+          // ignore: deprecated_member_use
           title: Text('Favorite'),
         ),
         const BottomNavigationBarItem(
           icon: Icon(Icons.person),
+          // ignore: deprecated_member_use
           title: Text('Profile'),
         ),
       ],

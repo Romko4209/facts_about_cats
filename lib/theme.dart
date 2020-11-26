@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 final theme = ThemeData(
   accentTextTheme: TextTheme(
+    // ignore: deprecated_member_use
     title: TextStyle(fontSize: 40, fontFamily: 'DancingScript'),
   ),
   primaryColor: Colors.purple,
