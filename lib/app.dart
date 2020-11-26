@@ -1,5 +1,6 @@
 import 'package:authentication_repository/authentication_repository.dart';
 import 'package:facts_about_cats/login/view/view.dart';
+import 'package:facts_about_cats/profile/view/profile_page.dart';
 
 import 'package:facts_about_cats/splash/splash.dart';
 import 'package:facts_about_cats/theme.dart';
@@ -50,14 +51,17 @@ class _AppViewState extends State<AppView> {
           listener: (context, state) {
             switch (state.status) {
               case AuthenticationStatus.authenticated:
-                print('authenticated');
+                _navigator.pushAndRemoveUntil<void>(
+                  ProfilePage.route(),
+                  (route) => false,
+                );
                 break;
               case AuthenticationStatus.unauthenticated:
                 _navigator.pushAndRemoveUntil<void>(
                   LoginPage.route(),
                   (route) => false,
                 );
-                print('login');
+
                 break;
               default:
                 break;
