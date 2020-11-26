@@ -3,6 +3,7 @@ import 'package:facts_about_cats/login/view/view.dart';
 import 'package:facts_about_cats/profile/view/profile_page.dart';
 
 import 'package:facts_about_cats/splash/splash.dart';
+import 'package:facts_about_cats/tabs/screen/provider.dart';
 import 'package:facts_about_cats/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -52,7 +53,7 @@ class _AppViewState extends State<AppView> {
             switch (state.status) {
               case AuthenticationStatus.authenticated:
                 _navigator.pushAndRemoveUntil<void>(
-                  ProfilePage.route(),
+                  TabProvider.route(),
                   (route) => false,
                 );
                 break;
