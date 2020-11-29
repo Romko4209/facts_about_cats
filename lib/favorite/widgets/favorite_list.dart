@@ -10,6 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class FavoriteList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    // ignore: close_sinks
     final userBloc = BlocProvider.of<FavoriteBloc>(context);
     final user = context.select((AuthenticationBloc bloc) => bloc.state.user);
     return BlocBuilder<FavoriteBloc, FavoriteState>(
