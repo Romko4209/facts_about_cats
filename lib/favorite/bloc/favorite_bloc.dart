@@ -5,7 +5,7 @@ import 'package:facts_about_cats/favorite/bloc/favorite_state.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
-  FavoriteBloc(FavoriteState initialState) : super(FavoriteStartState());
+  FavoriteBloc(FavoriteState initialState) : super(initialState);
 
   @override
   Stream<FavoriteState> mapEventToState(FavoriteEvent event) async* {
