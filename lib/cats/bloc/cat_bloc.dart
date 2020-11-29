@@ -54,9 +54,10 @@ class CatBloc extends Bloc<CatEvent, CatState> {
     );
     if (response.statusCode == 200) {
       final data = convert.jsonDecode(response.body) as List;
-      return data.map((dynamic rawPost) {
+      return data.map((dynamic images) {
         return ImageCat(
-          imageURL: rawPost['url'] as String,
+          id: images['id'] as String,
+          imageURL: images['url'] as String,
         );
       }).toList();
     }
@@ -84,7 +85,10 @@ class CatBloc extends Bloc<CatEvent, CatState> {
     var facts = await _fetchFacts(index);
     var list = <Cat>[];
     for (var i = 0; i < limitPage; i++) {
-      list.add(Cat(imageURL: images[i].imageURL, fact: facts[i].fact));
+      list.add(Cat(
+          id: images[index].id,
+          imageURL: images[i].imageURL,
+          fact: facts[i].fact));
     }
     return list;
   }
