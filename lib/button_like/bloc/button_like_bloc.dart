@@ -12,11 +12,20 @@ class ButtonLikeBloc extends Bloc<ButtonLikeEvent, ButtonLikeState> {
     if (event is AddToFavoriteEvent) {
       try {
         _addToFavourite(event.favorite, event.usertEmail);
+        print('added');
+        yield AddedFavoriteState();
       } catch (_) {
         yield ErrorState();
       }
-    } else if (event is RemoveToFavoriteEvent) {
-      print('deleted');
+    }
+    if (event is RemoveToFavoriteEvent) {
+      try {
+        _deleteFavorite(event.favorite, event.usertEmail);
+        print('removed');
+        yield RemovedFavoriteState();
+      } catch (_) {
+        yield ErrorState();
+      }
     }
   }
 
@@ -33,5 +42,14 @@ class ButtonLikeBloc extends Bloc<ButtonLikeEvent, ButtonLikeState> {
         .doc(favorite.id);
 
     collectionReference.set(data);
+  }
+
+  dynamic _deleteFavorite(Cat favorite, String userEmail) {
+    var collectionReference = FirebaseFirestore.instance
+        .collection('users')
+        .doc(userEmail)
+        .collection('images')
+        .doc(favorite.id);
+    collectionReference.delete();
   }
 }
