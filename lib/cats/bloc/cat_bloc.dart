@@ -66,6 +66,7 @@ class CatBloc extends Bloc<CatEvent, CatState> {
 
   Future<List<FactCat>> _fetchFacts(int indexItem) async {
     final page = indexItem / limitPage;
+    print(indexItem);
     final response = await http.get(
       'https://catfact.ninja/facts?limit=$limitPage&page=$page',
     );

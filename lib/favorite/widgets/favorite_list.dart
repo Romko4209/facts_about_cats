@@ -20,6 +20,7 @@ class FavoriteList extends StatelessWidget {
         }
 
         if (state is FavoriteEmptyState) {
+          //do not work
           return Center(
             child: Text(
               'No any favorite cats!',

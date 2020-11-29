@@ -9,20 +9,29 @@ class ButtonLikeBloc extends Bloc<ButtonLikeEvent, ButtonLikeState> {
 
   @override
   Stream<ButtonLikeState> mapEventToState(ButtonLikeEvent event) async* {
+    if (event is InitialEvent) {
+      try {
+        var favorited = await isFavorited(event.favorite, event.userEmail);
+
+        yield InitialState(isFavorited: favorited);
+      } catch (_) {
+        yield ErrorState();
+      }
+    }
     if (event is AddToFavoriteEvent) {
       try {
         _addToFavourite(event.favorite, event.usertEmail);
         print('added');
-        yield AddedFavoriteState();
+        yield InitialState(isFavorited: true);
       } catch (_) {
         yield ErrorState();
       }
     }
     if (event is RemoveToFavoriteEvent) {
       try {
-        _deleteFavorite(event.favorite, event.usertEmail);
+        _deleteFavorite(event.favorite, event.userEmail);
         print('removed');
-        yield RemovedFavoriteState();
+        yield InitialState(isFavorited: false);
       } catch (_) {
         yield ErrorState();
       }
@@ -51,5 +60,24 @@ class ButtonLikeBloc extends Bloc<ButtonLikeEvent, ButtonLikeState> {
         .collection('images')
         .doc(favorite.id);
     collectionReference.delete();
+  }
+
+  Future<bool> isFavorited(Cat favorite, String userEmail) async {
+    var collectionReference = FirebaseFirestore.instance
+        .collection('users')
+        .doc(userEmail)
+        .collection('images');
+
+    var querySnaphot = await collectionReference.getDocuments();
+
+    for (var item in querySnaphot.documents) {
+      final data = item.data();
+      if (data['id'] as String == favorite.id) {
+        print('fireitem ${item.id}  favorited${favorite.id}');
+        return true;
+      }
+    }
+    print('false favorited${favorite.id}');
+    return false;
   }
 }

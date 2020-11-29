@@ -10,7 +10,13 @@ class AddToFavoriteEvent extends ButtonLikeEvent {
 }
 
 class RemoveToFavoriteEvent extends ButtonLikeEvent {
-  RemoveToFavoriteEvent({@required this.favorite, @required this.usertEmail});
+  RemoveToFavoriteEvent({@required this.favorite, @required this.userEmail});
   final Cat favorite;
-  final String usertEmail;
+  final String userEmail;
+}
+
+class InitialEvent extends ButtonLikeEvent {
+  InitialEvent({@required this.favorite, @required this.userEmail});
+  final Cat favorite;
+  final String userEmail;
 }

@@ -12,7 +12,7 @@ class ButtonLike extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<ButtonLikeBloc>(
-      create: (context) => ButtonLikeBloc(InitialState()),
+      create: (context) => ButtonLikeBloc(ButtonStartState()),
       child: _ButtonLikeWidget(favorite),
     );
   }
@@ -28,35 +28,31 @@ class _ButtonLikeWidget extends StatelessWidget {
     final user = context.select((AuthenticationBloc bloc) => bloc.state.user);
     return BlocBuilder<ButtonLikeBloc, ButtonLikeState>(
       builder: (context, state) {
+        if (state is ButtonStartState) {
+          likeBloc.add(InitialEvent(
+            favorite: favorite,
+            userEmail: user.email,
+          ));
+        }
+
         if (state is InitialState) {
           return IconButton(
-            icon: Icon(Icons.favorite_outline),
-            onPressed: () => likeBloc.add(
-              AddToFavoriteEvent(
-                favorite: favorite,
-                usertEmail: user.email,
-              ),
-            ),
-          );
-        }
-        if (state is AddedFavoriteState) {
-          return IconButton(
-            icon: Icon(Icons.favorite_sharp),
-            onPressed: () => likeBloc.add(RemoveToFavoriteEvent(
-              favorite: favorite,
-              usertEmail: user.email,
-            )),
-          );
-        }
-        if (state is RemovedFavoriteState) {
-          return IconButton(
-            icon: Icon(Icons.favorite_border_outlined),
-            onPressed: () => likeBloc.add(
-              AddToFavoriteEvent(
-                favorite: favorite,
-                usertEmail: user.email,
-              ),
-            ),
+            icon: state.isFavorited
+                ? Icon(Icons.favorite_sharp)
+                : Icon(Icons.favorite_outline),
+            onPressed: () => state.isFavorited
+                ? likeBloc.add(
+                    RemoveToFavoriteEvent(
+                      favorite: favorite,
+                      userEmail: user.email,
+                    ),
+                  )
+                : likeBloc.add(
+                    AddToFavoriteEvent(
+                      favorite: favorite,
+                      usertEmail: user.email,
+                    ),
+                  ),
           );
         }
         return const Icon(Icons.favorite_border_outlined);
