@@ -1,5 +1,6 @@
 import 'package:facts_about_cats/cats/bloc/cat_bloc.dart';
-import 'package:facts_about_cats/cats/widgets/widgets.dart';
+import 'package:facts_about_cats/cats/widgets/bottom_loader.dart';
+import 'package:facts_about_cats/cats/widgets/list_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -35,6 +36,7 @@ class _ImagesListState extends State<ImagesList> {
             if (state.cats.isEmpty) {
               return const Center(child: Text('no pictures'));
             }
+
             return ListView.builder(
               itemBuilder: (BuildContext context, int index) {
                 return index >= state.cats.length

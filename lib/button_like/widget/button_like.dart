@@ -24,6 +24,7 @@ class _ButtonLikeWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: close_sinks
     final likeBloc = BlocProvider.of<ButtonLikeBloc>(context);
     final user = context.select((AuthenticationBloc bloc) => bloc.state.user);
     return BlocBuilder<ButtonLikeBloc, ButtonLikeState>(
@@ -34,11 +35,13 @@ class _ButtonLikeWidget extends StatelessWidget {
             userEmail: user.email,
           ));
         }
-
         if (state is InitialState) {
           return IconButton(
             icon: state.isFavorited
-                ? Icon(Icons.favorite_sharp)
+                ? Icon(
+                    Icons.favorite_sharp,
+                    color: Colors.red,
+                  )
                 : Icon(Icons.favorite_outline),
             onPressed: () => state.isFavorited
                 ? likeBloc.add(

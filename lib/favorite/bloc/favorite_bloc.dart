@@ -14,9 +14,12 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
       try {
         final List<Cat> _loadedFavoriteList =
             await getFavoriteImages(event.userEmail);
-
-        if (_loadedFavoriteList.isEmpty) yield FavoriteEmptyState();
-        yield FavoriteLoadedState(loadedFavorites: _loadedFavoriteList);
+        print(_loadedFavoriteList.length);
+        if (_loadedFavoriteList.isEmpty)
+          yield FavoriteEmptyState();
+        else {
+          yield FavoriteLoadedState(loadedFavorites: _loadedFavoriteList);
+        }
       } catch (_) {
         yield ErrorState();
       }

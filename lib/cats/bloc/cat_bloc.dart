@@ -2,17 +2,17 @@ import 'dart:async';
 import 'dart:convert' as convert;
 
 import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
 import 'package:facts_about_cats/cats/models/models.dart';
 
 import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
-import 'package:equatable/equatable.dart';
 
 part 'cat_event.dart';
 part 'cat_state.dart';
 
 class CatBloc extends Bloc<CatEvent, CatState> {
-  CatBloc({@required this.httpClient}) : super(CatState());
+  CatBloc({@required this.httpClient}) : super(const CatState());
 
   final http.Client httpClient;
   static const int limitPage = 20;
@@ -54,19 +54,18 @@ class CatBloc extends Bloc<CatEvent, CatState> {
     );
     if (response.statusCode == 200) {
       final data = convert.jsonDecode(response.body) as List;
-      return data.map((dynamic images) {
+      return data.map((dynamic rawCat) {
         return ImageCat(
-          id: images['id'] as String,
-          imageURL: images['url'] as String,
+          id: rawCat['id'] as String,
+          imageURL: rawCat['url'] as String,
         );
       }).toList();
     }
-    throw Exception('error fetching posts');
+    throw Exception('error fetching pictures');
   }
 
   Future<List<FactCat>> _fetchFacts(int indexItem) async {
     final page = indexItem / limitPage;
-    print(indexItem);
     final response = await http.get(
       'https://catfact.ninja/facts?limit=$limitPage&page=$page',
     );
@@ -87,9 +86,7 @@ class CatBloc extends Bloc<CatEvent, CatState> {
     var list = <Cat>[];
     for (var i = 0; i < limitPage; i++) {
       list.add(Cat(
-          id: images[index].id,
-          imageURL: images[i].imageURL,
-          fact: facts[i].fact));
+          id: images[i].id, imageURL: images[i].imageURL, fact: facts[i].fact));
     }
     return list;
   }

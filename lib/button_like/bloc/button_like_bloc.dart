@@ -68,16 +68,17 @@ class ButtonLikeBloc extends Bloc<ButtonLikeEvent, ButtonLikeState> {
         .doc(userEmail)
         .collection('images');
 
+    // ignore: deprecated_member_use
     var querySnaphot = await collectionReference.getDocuments();
 
+    // ignore: deprecated_member_use
     for (var item in querySnaphot.documents) {
       final data = item.data();
       if (data['id'] as String == favorite.id) {
-        print('fireitem ${item.id}  favorited${favorite.id}');
         return true;
       }
     }
-    print('false favorited${favorite.id}');
+
     return false;
   }
 }
