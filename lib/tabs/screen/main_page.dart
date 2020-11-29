@@ -37,6 +37,7 @@ class MainPage extends StatelessWidget {
               // ignore: deprecated_member_use
               style: Theme.of(context).accentTextTheme.title,
             ),
+            centerTitle: true,
           ),
           body: page,
           bottomNavigationBar: TabSelector(
