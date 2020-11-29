@@ -1,3 +1,4 @@
+import 'package:facts_about_cats/button_like/widget/button_like.dart';
 import 'package:facts_about_cats/cats/models/models.dart';
 import 'package:facts_about_cats/detail/view/detail_page.dart';
 import 'package:flutter/material.dart';
@@ -58,10 +59,7 @@ class ListItem extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
-                IconButton(
-                  icon: Icon(Icons.favorite_outline),
-                  onPressed: () => print('Favorite'),
-                ),
+                ButtonLike(cat),
               ],
             ),
           ),

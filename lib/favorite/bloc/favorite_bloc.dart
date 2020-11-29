@@ -28,7 +28,7 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
         .collection('users')
         .doc(userEmail)
         .collection('images');
-    print(userEmail);
+
     // ignore: deprecated_member_use
     var querySnaphot = await collectionReference.getDocuments();
     var list = <Cat>[];
