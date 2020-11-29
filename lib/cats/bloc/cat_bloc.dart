@@ -53,7 +53,6 @@ class CatBloc extends Bloc<CatEvent, CatState> {
       'https://api.thecatapi.com/v1/images/search?mime_types=jpg&limit=$limitPage',
     );
     if (response.statusCode == 200) {
-      //final data = json.decode(response.body) as List;
       final data = convert.jsonDecode(response.body) as List;
       return data.map((dynamic rawPost) {
         return ImageCat(
@@ -81,11 +80,11 @@ class CatBloc extends Bloc<CatEvent, CatState> {
   }
 
   Future<List<Cat>> _createCats(int index) async {
-    var imgs = await _fetchImages();
-    var fcts = await _fetchFacts(index);
+    var images = await _fetchImages();
+    var facts = await _fetchFacts(index);
     var list = <Cat>[];
     for (var i = 0; i < limitPage; i++) {
-      list.add(Cat(imageURL: imgs[i].imageURL, fact: fcts[i].fact));
+      list.add(Cat(imageURL: images[i].imageURL, fact: facts[i].fact));
     }
     return list;
   }
