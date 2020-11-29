@@ -1,4 +1,5 @@
 import 'package:facts_about_cats/cats/view/cats_page.dart';
+import 'package:facts_about_cats/favorite/screen/favorite_page.dart';
 import 'package:facts_about_cats/profile/view/profile_page.dart';
 import 'package:facts_about_cats/tabs/bloc/tab.dart';
 import 'package:facts_about_cats/tabs/model/app_tab.dart';
@@ -20,7 +21,7 @@ class MainPage extends StatelessWidget {
             break;
           case AppTab.favorite:
             selectedPageTitle = 'Favorite';
-            page = ProfilePage();
+            page = FavoritePage();
             break;
           case AppTab.profile:
             selectedPageTitle = 'Profile';

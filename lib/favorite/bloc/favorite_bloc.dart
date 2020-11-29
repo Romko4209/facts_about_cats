@@ -14,6 +14,7 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
       try {
         final List<Cat> _loadedFavoriteList =
             await getFavoriteImages(event.userEmail);
+
         if (_loadedFavoriteList.isEmpty) yield FavoriteEmptyState();
         yield FavoriteLoadedState(loadedFavorites: _loadedFavoriteList);
       } catch (_) {
@@ -27,9 +28,11 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
         .collection('users')
         .doc(userEmail)
         .collection('images');
+    print(userEmail);
     // ignore: deprecated_member_use
     var querySnaphot = await collectionReference.getDocuments();
     var list = <Cat>[];
+
     // ignore: deprecated_member_use
     for (var item in querySnaphot.documents) {
       final data = item.data();
