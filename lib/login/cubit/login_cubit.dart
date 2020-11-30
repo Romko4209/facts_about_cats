@@ -13,4 +13,8 @@ class LoginCubit extends Cubit<LoginState> {
   Future<void> logInWithGoogle() async {
     await _authenticationRepository.logInWithGoogle();
   }
+
+  Future<void> logInWithFacebook() async {
+    await _authenticationRepository.logInWithFacebook();
+  }
 }

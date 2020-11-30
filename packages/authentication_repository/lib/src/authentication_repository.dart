@@ -1,11 +1,14 @@
 import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
+import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import 'models/models.dart';
 
 class LogInWithGoogleFailure implements Exception {}
+
+class LogInWithFacebookFailure implements Exception {}
 
 class LogOutFailure implements Exception {}
 
@@ -18,6 +21,7 @@ class AuthenticationRepository {
 
   final firebase_auth.FirebaseAuth _firebaseAuth;
   final GoogleSignIn _googleSignIn;
+  final _facebookLogin = FacebookLogin();
 
   Stream<User> get user {
     return _firebaseAuth.authStateChanges().map((firebaseUser) {
@@ -36,6 +40,18 @@ class AuthenticationRepository {
       return await _firebaseAuth.signInWithCredential(credential);
     } on Exception {
       throw LogInWithGoogleFailure();
+    }
+  }
+
+  Future<void> logInWithFacebook() async {
+    try {
+      final result = await _facebookLogin.logIn(['email']);
+      final credential = firebase_auth.FacebookAuthProvider.getCredential(
+          result.accessToken.token);
+
+      return await _firebaseAuth.signInWithCredential(credential);
+    } on Exception {
+      throw LogInWithFacebookFailure();
     }
   }
 
