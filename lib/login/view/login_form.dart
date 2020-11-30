@@ -26,6 +26,8 @@ class LoginForm extends StatelessWidget {
           ),
           const SizedBox(height: 8.0),
           _GoogleLoginButton(),
+          const SizedBox(height: 8.0),
+          _FacebookLoginButton(),
         ],
       ),
     );
@@ -46,6 +48,24 @@ class _GoogleLoginButton extends StatelessWidget {
       icon: const Icon(FontAwesomeIcons.google, color: Colors.white),
       color: theme.primaryColor,
       onPressed: () => context.read<LoginCubit>().logInWithGoogle(),
+    );
+  }
+}
+
+class _FacebookLoginButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return RaisedButton.icon(
+      key: const Key('loginForm_googleLogin_raisedButton'),
+      label: const Text(
+        'SIGN IN WITH FACEBOOK',
+        style: TextStyle(color: Colors.white),
+      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
+      icon: const Icon(FontAwesomeIcons.facebook, color: Colors.white),
+      color: theme.primaryColor,
+      onPressed: () => context.read<LoginCubit>().logInWithFacebook(),
     );
   }
 }

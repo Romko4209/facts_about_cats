@@ -32,6 +32,9 @@ class AuthenticationRepository {
   Future<void> logInWithGoogle() async {
     try {
       final googleUser = await _googleSignIn.signIn();
+      if (googleUser == null) {
+        return Future.error('CANCELLED_SIGN_IN');
+      }
       final googleAuth = await googleUser.authentication;
       final credential = firebase_auth.GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
@@ -45,11 +48,26 @@ class AuthenticationRepository {
 
   Future<void> logInWithFacebook() async {
     try {
-      final result = await _facebookLogin.logIn(['email']);
-      final credential = firebase_auth.FacebookAuthProvider.getCredential(
-          result.accessToken.token);
+      final result = await _facebookLogin
+          .logIn(['email', 'public_profile', 'user_friends']);
 
-      return await _firebaseAuth.signInWithCredential(credential);
+      switch (result.status) {
+        case FacebookLoginStatus.loggedIn:
+          final FacebookAccessToken accessToken = result.accessToken;
+
+          final credential = firebase_auth.FacebookAuthProvider.getCredential(
+              accessToken.token);
+
+          return await _firebaseAuth.signInWithCredential(credential);
+          break;
+        case FacebookLoginStatus.cancelledByUser:
+          print('Login cancelled by the user.');
+          break;
+        case FacebookLoginStatus.error:
+          print('Something went wrong with the login process.\n'
+              'Here\'s the error Facebook gave us: ${result.errorMessage}');
+          break;
+      }
     } on Exception {
       throw LogInWithFacebookFailure();
     }
@@ -60,6 +78,7 @@ class AuthenticationRepository {
       await Future.wait([
         _firebaseAuth.signOut(),
         _googleSignIn.signOut(),
+        _facebookLogin.logOut(),
       ]);
     } on Exception {
       throw LogOutFailure();
