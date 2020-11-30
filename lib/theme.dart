@@ -7,5 +7,5 @@ final theme = ThemeData(
   ),
   primaryColor: Colors.purple,
   accentColor: Colors.blue,
-  scaffoldBackgroundColor: Colors.white,
+  scaffoldBackgroundColor: Color(0xFFE8EAF6),
 );
