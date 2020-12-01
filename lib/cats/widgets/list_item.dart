@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:facts_about_cats/button_like/widget/button_like.dart';
 import 'package:facts_about_cats/cats/models/models.dart';
 import 'package:facts_about_cats/detail/view/detail_page.dart';
@@ -14,13 +15,14 @@ class ListItem extends StatelessWidget {
       children: [
         InkWell(
           onTap: routeToDetail == true
-              ? () => {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute<void>(
-                          builder: (context) => DetailPage(cat)),
-                    )
-                  }
+              ? () {
+                  //print(cat.imageURL);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute<void>(
+                        builder: (context) => DetailPage(cat)),
+                  );
+                }
               : null,
           child: Card(
             shape: RoundedRectangleBorder(
@@ -34,12 +36,17 @@ class ListItem extends StatelessWidget {
               ),
               child: Hero(
                 tag: cat.imageURL,
-                child: FadeInImage.assetNetwork(
-                  image: cat.imageURL,
+                child: CachedNetworkImage(
+                  imageUrl: cat.imageURL,
                   height: 250,
                   width: double.infinity,
                   fit: BoxFit.cover,
-                  placeholder: 'assets/image/loading.gif',
+                  placeholder: (context, url) => Container(
+                    child: Image.asset(
+                      'assets/image/loading.gif',
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                 ),
               ),
             ),
