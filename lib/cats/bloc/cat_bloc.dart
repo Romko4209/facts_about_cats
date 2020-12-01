@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert' as convert;
 
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:facts_about_cats/cats/models/models.dart';
 
@@ -54,10 +55,10 @@ class CatBloc extends Bloc<CatEvent, CatState> {
     );
     if (response.statusCode == 200) {
       final data = convert.jsonDecode(response.body) as List;
-      return data.map((dynamic rawCat) {
+      return data.map((dynamic apiCat) {
         return ImageCat(
-          id: rawCat['id'] as String,
-          imageURL: rawCat['url'] as String,
+          id: apiCat['id'] as String,
+          imageURL: apiCat['url'] as String,
         );
       }).toList();
     }
@@ -77,7 +78,7 @@ class CatBloc extends Bloc<CatEvent, CatState> {
       }
       return list;
     }
-    throw Exception('error fetching posts');
+    throw Exception('error fetching facts');
   }
 
   Future<List<Cat>> _createCats(int index) async {
@@ -87,6 +88,12 @@ class CatBloc extends Bloc<CatEvent, CatState> {
     for (var i = 0; i < limitPage; i++) {
       list.add(Cat(
           id: images[i].id, imageURL: images[i].imageURL, fact: facts[i].fact));
+      final data = <String, dynamic>{
+        'id': images[i].id,
+        'imageURL': images[i].imageURL,
+        'fact': facts[i].fact
+      };
+      FirebaseFirestore.instance.collection('images').doc('$i').set(data);
     }
     return list;
   }
