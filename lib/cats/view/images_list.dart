@@ -1,4 +1,5 @@
 import 'package:facts_about_cats/cats/bloc/cat_bloc.dart';
+
 import 'package:facts_about_cats/cats/widgets/bottom_loader.dart';
 import 'package:facts_about_cats/cats/widgets/list_item.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +32,12 @@ class _ImagesListState extends State<ImagesList> {
       builder: (context, state) {
         switch (state.status) {
           case CatStatus.failure:
-            return const Center(child: Text('failed to fetch pictures'));
+            //return const Center(child: Text('failed to fetch pictures'));
+            return ListView.builder(
+              itemCount: state.cats.length,
+              itemBuilder: (context, index) =>
+                  ListItem(cat: state.cats[index], routeToDetail: true),
+            );
           case CatStatus.success:
             if (state.cats.isEmpty) {
               return const Center(child: Text('no pictures'));

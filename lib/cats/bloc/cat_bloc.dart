@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert' as convert;
 
 import 'package:bloc/bloc.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:facts_about_cats/cats/models/models.dart';
@@ -30,6 +31,7 @@ class CatBloc extends Bloc<CatEvent, CatState> {
     try {
       if (state.status == CatStatus.initial) {
         final cats = await _createCats(0);
+        //final cats = await _getCachedImages();
         return state.copyWith(
           status: CatStatus.success,
           cats: cats,
@@ -45,7 +47,9 @@ class CatBloc extends Bloc<CatEvent, CatState> {
               hasReachedMax: false,
             );
     } on Exception {
-      return state.copyWith(status: CatStatus.failure);
+      final cats = await _getCachedImages();
+      print('cache');
+      return state.copyWith(status: CatStatus.failure, cats: cats);
     }
   }
 
@@ -86,6 +90,9 @@ class CatBloc extends Bloc<CatEvent, CatState> {
     var facts = await _fetchFacts(index);
     var list = <Cat>[];
     for (var i = 0; i < limitPage; i++) {
+      CachedNetworkImage(
+        imageUrl: images[i].imageURL,
+      );
       list.add(Cat(
           id: images[i].id, imageURL: images[i].imageURL, fact: facts[i].fact));
       final data = <String, dynamic>{
@@ -94,6 +101,26 @@ class CatBloc extends Bloc<CatEvent, CatState> {
         'fact': facts[i].fact
       };
       FirebaseFirestore.instance.collection('images').doc('$i').set(data);
+    }
+    return list;
+  }
+
+  Future<List<Cat>> _getCachedImages() async {
+    var collectionReference = FirebaseFirestore.instance.collection('images');
+
+    // ignore: deprecated_member_use
+    var querySnaphot = await collectionReference.getDocuments();
+    var list = <Cat>[];
+
+    // ignore: deprecated_member_use
+    for (var item in querySnaphot.documents) {
+      final data = item.data();
+      list.add(
+        Cat(
+            id: data['id'] as String,
+            imageURL: data['imageURL'] as String,
+            fact: data['fact'] as String),
+      );
     }
     return list;
   }
