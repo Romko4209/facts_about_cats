@@ -58,7 +58,7 @@ class _ButtonLikeWidget extends StatelessWidget {
                   ),
           );
         }
-        return const Icon(Icons.favorite_border_outlined);
+        return const Icon(Icons.favorite_outline);
       },
     );
   }
