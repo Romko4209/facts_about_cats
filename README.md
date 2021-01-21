@@ -17,5 +17,4 @@ select any mobile device as a target device in your IDE.
 $ flutter run --release
 ```
 
-### Deploy:
 
