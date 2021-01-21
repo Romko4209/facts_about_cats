@@ -10,11 +10,7 @@ $ flutter doctor
 ```
 
 ### Run:
-select any mobile device as a target device in your IDE
-or:
-```
-$ flutter run -d chrome
-
+select any mobile device as a target device in your IDE.
 
 ### Build for release:
 ```
