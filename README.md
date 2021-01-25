@@ -1,20 +1,17 @@
-# flutter_workload
+# workload
 
-New Flutter project for Petterson internal tracking system.
+### Generate Localized Strings
+````
+flutter packages pub run l10n_generator:main -o ./lib/generated
+````
 
-### Configure flutter:
-```
-$ flutter channel stable
-$ flutter upgrade
-$ flutter doctor
-```
+### Build generated classes (JSON, Freezed, etc)
+````
+flutter packages pub run build_runner build --delete-conflicting-outputs
+````
 
-### Run:
-select any mobile device as a target device in your IDE.
+### Analyze code
 
-### Build for release:
-```
-$ flutter run --release
-```
-
-
+````
+flutter analyze .
+````
